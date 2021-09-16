@@ -8,17 +8,6 @@
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <!-- <header>
-      <div class="container flex">
-        <a href="/users">
-          <h2 class="logo">Home</h2>
-        </a>
-        <div>
-          <a class="btn btn_primary" href="/login">Login</a>
-          <a class="btn btn_primary" href="/register">Register</a>
-        </div>
-      </div>
-    </header> -->
     <% include partials/header %>
     <main>
       <div class="container">
@@ -27,7 +16,11 @@
           <% if(error){ %>
           <p class="text_error"><%= error %></p>
           <% } %>
-          <form action="/users/register" method="POST">
+          <form
+            action="/users/register"
+            method="POST"
+            enctype="multipart/form-data"
+          >
             <input
               type="text"
               name="name"
@@ -52,12 +45,13 @@
               placeholder="Password"
               class="input_handle"
             />
-            <input
-              type="text"
-              name="profilePic"
-              placeholder="Add Profile Image"
-              class="input_handle"
-            />
+            <div class="file_upload">
+              <input
+                type="file"
+                name="profilePic"
+                placeholder="Add Profile Image"
+              />
+            </div>
             <button type="submit" class="btn btn_sub">Register</button>
           </form>
         </div>
