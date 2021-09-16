@@ -1,6 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
+var multer = require('multer');
+var path = require('path');
+
+var uploadPath = path.join(__dirname, '../', 'public/uploads');
+// Strorage for Uploaded Files
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+var upload = multer({ storage: storage });
 
 /* GET users listing. */
 
@@ -21,7 +37,8 @@ router.get('/register', function (req, res, next) {
   res.render('register', { error: req.flash('error')[0] });
 });
 
-router.post('/register', (req, res, next) => {
+router.post('/register', upload.single('profilePic'), (req, res, next) => {
+  req.body.profilePic = req.file.filename;
   User.create(req.body, (err, user) => {
     console.log(err, user);
     if (err) {

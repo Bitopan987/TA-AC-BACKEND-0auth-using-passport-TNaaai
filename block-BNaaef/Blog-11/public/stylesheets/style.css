@@ -218,6 +218,24 @@ body .user_name {
   text-transform: uppercase;
 }
 
+body .file_upload {
+  text-align: left;
+  padding-left: 0.7rem;
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+}
+
+body .profile {
+  display: inline-block;
+}
+
+body .profile img {
+  width: 4rem;
+  height: 2.5rem;
+  width: 100%;
+  vertical-align: bottom;
+}
+
 .btn {
   display: inline-block;
   border: none;

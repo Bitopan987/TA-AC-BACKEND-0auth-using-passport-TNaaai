@@ -15,7 +15,13 @@
         </a>
         <div>
           <% if(user) { %>
-          <a class="user_name"><%= user.name %></a>
+          <a class="user_name"
+            ><%= user.name %>
+            <div class="profile">
+              <img src="/uploads/<%= user.profilePic %>" alt="Profile Pic" />
+            </div>
+          </a>
+
           <a class="btn btn_primary" href="/articles/my-articles">My Article</a>
           <a class="btn btn_primary" href="articles/new">Add Article</a>
           <a class="btn btn_primary" href="/logout">Logout</a>
