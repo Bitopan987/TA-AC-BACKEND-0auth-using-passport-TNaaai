@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/User');
 var Article = require('../models/article');
 var Comment = require('../models/comments');
+const auth = require('../middlewares/auth');
 
 router.get('/', (req, res, next) => {
   Article.find({}, (err, articles) => {
@@ -11,14 +11,18 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.get('/new', (req, res) => {
-  if (req.session.userId) {
-    res.render('addArticle');
-  } else {
-    req.flash('error', 'You must login to create new article');
-    res.redirect('/users/login');
-  }
+router.get('/new', auth.loggdInUser, (req, res) => {
+  res.render('addArticle');
 });
+
+// router.get('/new', (req, res) => {
+//   if (req.session.userId) {
+//     res.render('addArticle');
+//   } else {
+//     req.flash('error', 'You must login to create new article');
+//     res.redirect('/users/login');
+//   }
+// });
 
 router.post('/', (req, res, next) => {
   req.body.author = req.session.userId;

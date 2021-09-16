@@ -7,12 +7,16 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
+var passport = require('passport');
+
 require('dotenv').config();
+require('./modules/passport');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var articlesRouter = require('./routes/articles');
 var commentsRouter = require('./routes/comments');
+var auth = require('./middlewares/auth');
 
 mongoose.connect(
   'mongodb://localhost/blog-11',
@@ -45,9 +49,15 @@ app.use(
 
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(auth.userInfo);
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
+app.use(auth.loggdInUser);
 app.use('/comments', commentsRouter);
 
 // catch 404 and forward to error handler

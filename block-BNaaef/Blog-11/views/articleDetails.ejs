@@ -22,7 +22,7 @@
     <div class="container">
       <section class="article">
         <h2><%= article.title %></h2>
-        <p>Name : <%= article.author.fullName %></p>
+        <p>Name : <%= article.author.name %></p>
         <div>
          <p> Tags: <% article.tags.forEach( tag => { %>
           <span class="border-2 p-2 mr-2 bg-gray-200"></span><%= tag %></span>
