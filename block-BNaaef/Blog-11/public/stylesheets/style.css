@@ -63,6 +63,7 @@ body .form h2 {
   color: #58a6ff;
   font-size: 1.4rem;
   padding: 1rem 0;
+  margin-bottom: 1rem;
 }
 
 body .form .input_handle {
@@ -186,6 +187,35 @@ body .content button {
 body .center {
   text-align: center;
   padding: 2rem;
+}
+
+body .oAuth-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+body .oAuth-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 0.7rem;
+}
+
+body .oAuth-container span {
+  padding: 0 0.6rem;
+  color: #928e8e;
+}
+
+body .user_name {
+  padding: 0 1rem;
+  color: #58a6ff;
+  text-transform: uppercase;
 }
 
 .btn {

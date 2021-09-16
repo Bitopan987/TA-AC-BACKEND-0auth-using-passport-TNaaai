@@ -11,6 +11,14 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/my-articles', auth.loggdInUser, (req, res, next) => {
+  let currentUserId = req.user.id;
+  Article.find({ author: currentUserId }, (err, articles) => {
+    if (err) return next(err);
+    res.render('articles', { articles });
+  });
+});
+
 router.get('/new', auth.loggdInUser, (req, res) => {
   res.render('addArticle');
 });
@@ -24,21 +32,8 @@ router.get('/new', auth.loggdInUser, (req, res) => {
 //   }
 // });
 
-router.post('/', (req, res, next) => {
-  req.body.author = req.session.userId;
-  req.body.tags = req.body.tags.trim().split(' ');
-  Article.create(req.body, (err, createdArticle) => {
-    if (err) return next(err);
-    res.redirect('/articles');
-  });
-});
-
 router.get('/:slug', (req, res, next) => {
   console.log(req.session);
-  if (!req.session.userId) {
-    req.flash('error', 'You must login to see blog details');
-    return res.redirect('/users/login');
-  }
   let givenSlug = req.params.slug;
   Article.findOne({ slug: givenSlug })
     .populate('comments')
@@ -48,6 +43,17 @@ router.get('/:slug', (req, res, next) => {
       if (err) return next(err);
       res.render('articleDetails', { article: article });
     });
+});
+
+router.use(auth.loggdInUser);
+
+router.post('/', (req, res, next) => {
+  req.body.author = req.session.userId;
+  req.body.tags = req.body.tags.trim().split(' ');
+  Article.create(req.body, (err, createdArticle) => {
+    if (err) return next(err);
+    res.redirect('/articles');
+  });
 });
 
 // update Article
@@ -88,7 +94,6 @@ router.get('/:slug/delete', (req, res, next) => {
 
 router.get('/:slug/likes', (req, res, next) => {
   let givenSlug = req.params.slug;
-
   Article.findOneAndUpdate(
     { slug: givenSlug },
     { $inc: { likes: 1 } },
