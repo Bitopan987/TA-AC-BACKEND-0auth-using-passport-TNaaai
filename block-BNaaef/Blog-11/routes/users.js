@@ -65,7 +65,9 @@ router.post('/login', (req, res, next) => {
       }
       // persist login user info
       req.session.userId = user.id;
-      res.redirect('/users/dashboard');
+      res.redirect(req.session.returnTo || '/users/dashboard');
+      delete req.session.returnTo;
+      // res.redirect('/users/dashboard');
     });
   });
 });

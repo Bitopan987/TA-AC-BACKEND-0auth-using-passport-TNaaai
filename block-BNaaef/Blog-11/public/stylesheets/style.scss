@@ -50,6 +50,7 @@ body {
       color: $ternary;
       font-size: 1.4rem;
       padding: 1rem 0;
+      margin-bottom: 1rem;
     }
     .input_handle {
       display: block;
@@ -151,6 +152,27 @@ body {
   .center {
     text-align: center;
     padding: 2rem;
+  }
+  .oAuth-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .oAuth-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.7rem;
+  }
+  .oAuth-container {
+    span {
+      padding: 0 0.6rem;
+      color: #928e8e;
+    }
+  }
+  .user_name {
+    padding: 0 1rem;
+    color: $ternary;
+    text-transform: uppercase;
   }
 }
 

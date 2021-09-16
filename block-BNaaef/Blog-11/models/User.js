@@ -8,7 +8,7 @@ var userSchema = new Schema({
   name: { type: String, required: true },
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, minlength: 5 },
+  password: { type: String, minlength: 5 },
   articles: [{ type: Schema.Types.ObjectId, ref: 'Article' }],
   profilePic: String,
 });
